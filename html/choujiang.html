@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+		    img{border: none;}
+			.box{width: 100%;}
+			.box img{width: 100%;display: block;}
+			
+			.topic1{width: 100%;color: white;position: relative;}
+			.topic1 img{width: 100%;display: block;}
+			.topic1_1{position: absolute;top: 0px;display: flex;width: 100%;}
+			.topic1_1 span:nth-child(1){flex: 1;text-align: right}
+			.topic1_1 span:nth-child(2){flex: 1;text-align: center;}
+			
+			.guize{width: 90%;height: 400px;background: white;color: black;
+			        position: fixed;top:100px;left:5%;display: none;z-index: 999;border-radius: 2%;}
+			.guize_1{width: 100%;height: 360px;border-radius: 2%;
+			        background: white;color: black;overflow: auto;}
+			.guize_1 h3{text-align: center;margin-top: 10px;}       
+			.guize_1 p{margin-top: 8px;margin-left: 10px;}
+			.guize_1 p:nth-child(6),.guize p:nth-child(7),.guize p:nth-child(8),.guize p:nth-child(9){
+				     margin-left: 110px;}
+		    .guize_2{width: 100%;height: 30px;text-align: center;line-height: 40px;
+		     background: white;color: blue;border-top: solid 1px #979797;}  		     
+			.sudoku{width: 300;height: 300px;border: solid 5px #013781;
+			        position: absolute;top:50px;left:8%}
+	        .prize{width: 80%;height: 150px;border: solid 5px #013781;padding: 5px;
+	                position: absolute;top:450px;left:8%;background: #f0f0f0;color: #444444;}
+	        .prize h2{margin-top: 20px;margin-left: 20px;}      
+	        .prize_h4{margin-left: 20px;}  
+	        .prize_h{margin-left: 20px;}   
+	        .redeem{width: 80%;position: absolute;top:650px;left:10%}       
+	        .tonggao{width: 80%;height: 200px; position: absolute;bottom: 50px;left: 10%;}
+	        .tonggao h2{height: 40px;line-height: 40px;}
+	        .tonggao_1{width: 100%;height: 160px;overflow: hidden;}
+	        .tonggao_1_1{width:100%; height: 160px; animation: run2 10s linear infinite;}
+	        .tonggao_1_1 p{margin-left: 10px;height: 20px;line-height: 20px;}
+
+	        	@keyframes run2 {
+					0%{transform:translateY(0)}
+					10%{transform:translateY(-20);}
+		
+					20%{transform:translateY(-40px);}
+					30%{transform:translateY(-60px);}
+		
+					40%{transform:translateY(-80px);}
+					50%{transform:translateY(-100px);}
+		
+					60%{transform:translateY(-120px);}
+					70%{transform:translateY(-140px);}
+		
+					80%{transform:translateY(-160px);}
+					90%{transform:translateY(-180px);}
+		
+					100%{transform:translateY(-200px);}
+				}
+	        .footer{width: 100%; position: absolute;bottom: 20px;text-align: center;color: aqua;}
+	        /*九宫格样式*/
+	        #lottery{width:300px;height:300px;}
+			#lottery table td{width:100px;height:100px;text-align:center;vertical-align:middle;color:#333;font-index:-999;background: beige;}
+			#lottery table td a{width:100px;height:100px;display:block;text-decoration:none;overflow: hidden;}
+		    #lottery table td a img{margin-top: 10px;}
+		    #lottery table td img{width: 80px;height: 80px;margin-left: 10px;}
+		    #lottery table td.active{background:yellow;}
+			/*中奖提示框*/
+			.zj{width: 70%;height: 150px;border-radius: 5%;position: fixed;top: 40%;left: 15%;background: white;color: black;display: none;}
+			.zj_1{width: 100%;height: 110px;margin-top: 10px;border-bottom: solid 1px #c4c4c3;text-align: center;background: white;color: black;}
+		    .p_qd{line-height: 30px;text-align: center;}
+		    .p_nr{margin-top: 30px;color: red;display: block;}
+		</style>
+		<script src="../js/jquery-1.12.0.js"></script>
+		<script src="../js/lottery.js"></script>
+		<script>
+			$(function(){
+				//点击活动规则时，弹出窗口
+				$(".topic1_1 span").eq(2).on("click",function(){
+					$(".guize").show();
+					//点击确定时
+					$(".guize_2 h2").on("click",function(){
+						$(".guize").hide();
+					})
+				});
+//				九宫格
+				lottery.lottery({
+							selector:     '#lottery',
+							width:        3,
+							height:       3,
+							index:        0,    // 初始位置
+							initSpeed:    500,  // 初始转动速度
+							// upStep:       50,   // 加速滚动步长
+							// upMax:        50,   // 速度上限
+							// downStep:     30,   // 减速滚动步长
+							// downMax:      500,  // 减速上限
+							// waiting:      5000, // 匀速转动时长
+							beforeRoll: function () { // 重写滚动前事件：beforeRoll
+								// console.log(this);
+								// alert(1);
+							}
+						});
+				//点击立即兑奖播放音乐
+				var redeem = document.querySelector(".redeem");
+				var player = document.querySelector("#player");
+				redeem.onclick = function(){
+					player.play();
+				}
+				
+			});
+		</script>
+	</head>
+	<body>
+		<div class="box"><img src="../img/topic_1.jpg"/></div>
+		<div class="topic1">
+				<img src="../img/topic_2.jpg" />
+				<img src="../img/topic_2.jpg" />
+				<img src="../img/topic_2.jpg" />
+				<img src="../img/topic_2.jpg" />
+				<img src="../img/topic_2.jpg" />
+				<img src="../img/topic_2.jpg" />
+				<div class="topic1_1">
+					<span>抽奖次数：<span class="cs">3</span>次</span>
+					<span>活动规则</span>
+				</div>
+				<div class="sudoku">
+					<div id="lottery">
+						<table border="0" cellpadding="0" cellspacing="0">
+							<tr class="lottery-group">
+								<td class="lottery-unit td_1 active" ><img src="../img/3.png" /></td>
+								<td class="lottery-unit td_2"><img src="../img/111.jpg" /></td>
+								<td class="lottery-unit td_3"><img src="../img/3.png" /></td>
+							</tr>
+							<tr class="lottery-group">
+								<td class="lottery-unit td_4"><img src="../img/123.jpg" /></td>
+								<td class="td_5"><a href="#"><img id="oimg" src="../img/start.jpg" /></a></td>
+								<td class="lottery-unit td_6"><img src="../img/123.jpg" /></td>
+							</tr>
+					        <tr class="lottery-group">
+								<td class="lottery-unit td_7"><img src="../img/3.png" /></td>
+								<td class="lottery-unit td_8"><img src="../img2/6.jpg" /></td>
+								<td class="lottery-unit td_9"><img src="../img/3.png" /></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="prize">
+					<h2>我的奖品：</h2>
+					<h4 class="prize_h4">未中奖</h4>
+				</div>
+				<div class="zj">
+					<div class="zj_1">
+						<p class="p_ts">提示</p>
+						<span class="p_nr">未中奖</span>
+					</div>
+					<p class="p_qd">确定</p>
+				</div>
+				<div class="guize">
+					<div class="guize_1">
+						<h3>游戏规则</h3>
+						<p>1.	开始游戏进行答题，答对3个题目可以进行抽奖；</p>
+						<p>2.	抽奖时点击九宫格，转动停止停留的位置就是您获得的奖品，每次答对都有3次抽奖机会；</p>
+						<p>3.	答错也不怕，活动时间内每天都可以答题抽奖；</p>
+						<p>4.	活动结束根据您的奖品进行现场兑奖，具体奖项如下：</p>
+						<p>	200元网费</p>  
+						<p>	100元网费 </p>  
+						<p>	50元网费</p>  
+						<p>	饮品券 </p>    
+				        <p>5.	答题抽奖时间为：2017年1月6日——1月13日</p>
+				        <p>6.	兑奖时间为：2017年1月14日——1月20日</p>
+				        <p>7.	兑奖地址：柳州市五星街德才大厦2楼聚网咖</p>
+				        <p>活动最终解释权归壹今新闻及聚网咖所有。</p>
+					</div>
+					<div class="guize_2"><h2>确定</h2></div>
+
+				</div>
+				<div class="redeem">
+					<img src="../img/rj.jpg" />
+					<audio src="../MP3/许嵩 - 有何不可.mp3" id="player"></audio>
+				</div>
+				<div class="tonggao">
+					<h2>已发出的奖品：</h2>
+					<div class="tonggao_1">
+						<div class="tonggao_1_1">
+							<p>187****9512 收获一枚逗比小萝莉</p>
+							<p>139****9534 收获一枚可爱小萝莉</p>
+							<p>139****9548 获得免佣卷2元</p>
+							<p>187****9595 收获一枚逗比小萝莉</p>
+							<p>152****8643 获得免佣卷2元</p>
+							<p>187****7656 获得免佣卷2元</p>
+							<p>180****3113 收获一枚可爱小萝莉</p>
+							<p>187****8985 收获一枚逗比小萝莉</p>
+							<p>180****1234 获得免佣卷2元</p>
+							<p>187****9512 收获一枚逗比小萝莉</p>
+							<p>139****9534 收获一枚可爱小萝莉</p>
+							<p>139****9548 获得免佣卷2元</p>
+							<p>187****9595 收获一枚逗比小萝莉</p>
+							<p>152****8643 获得免佣卷2元</p>
+							<p>187****7656 获得免佣卷2元</p>
+							<p>180****3113 收获一枚可爱小萝莉</p>
+							<p>187****8985 收获一枚逗比小萝莉</p>
+							<p>180****1234 获得免佣卷2元</p>
+						</div>
+					</div>
+				</div>
+				<footer class="footer">
+					<p>咨询电话:  18277200903</p>
+				</footer>
+				
+		</div>
+	</body>
+</html>
