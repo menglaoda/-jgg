@@ -71,6 +71,9 @@
 			.zj_1{width: 100%;height: 110px;margin-top: 10px;border-bottom: solid 1px #c4c4c3;text-align: center;background: white;color: black;}
 		    .p_qd{line-height: 30px;text-align: center;}
 		    .p_nr{margin-top: 30px;color: red;display: block;}
+		    .oplay,.oplay2 {width: 20px; height: 20px;position: absolute;top: 10px;left: 10px;}
+		    .oplay img{width: 20px; height: 20px;}
+		    .oplay2 img{width: 20px; height: 20px;}
 		</style>
 		<script src="../js/jquery-1.12.0.js"></script>
 		<script src="../js/lottery.js"></script>
@@ -84,6 +87,7 @@
 						$(".guize").hide();
 					})
 				});
+				
 //				九宫格
 				lottery.lottery({
 							selector:     '#lottery',
@@ -101,18 +105,36 @@
 								// alert(1);
 							}
 						});
-				//点击立即兑奖播放音乐
-				var redeem = document.querySelector(".redeem");
-				var player = document.querySelector("#player");
-//				redeem.onclick = function(){
-//					player.play();
-//				}
-//				
 			});
+			window.onload = function(){
+					//点击播放音乐时
+					var oplay = document.querySelector(".oplay");
+					var oplay2 = document.querySelector(".oplay2");
+					var player = document.querySelector("#player");
+					oplay2.style.display = "none";
+					oplay.onclick=function(){
+						oplay.style.display = "none";
+						oplay2.style.display = "block";
+						player.play();
+					};
+					oplay2.onclick=function(){
+						oplay.style.display = "block";
+						oplay2.style.display = "none";
+						player.pause();
+					};
+			}
 		</script>
 	</head>
 	<body>
-		<div class="box"><img src="../img/topic_1.jpg"/></div>
+		<div class="box"><img src="../img/topic_1.jpg"/>
+			<div class="oplay">
+					<img src="../img/qq1.png"/>
+					<audio id="player" src="../MP3/许嵩 - 有何不可.mp3" preload></audio>
+			</div>
+			<div class="oplay2">
+					<img src="../img/qq.png"/>
+			</div>
+		</div>
 		<div class="topic1">
 				<img src="../img/topic_2.jpg" />
 				<img src="../img/topic_2.jpg" />
@@ -177,7 +199,7 @@
 				</div>
 				<div class="redeem">
 					<img src="../img/rj.jpg" />
-					<audio src="../MP3/许嵩 - 有何不可.mp3" id="player" autoplay loop></audio>
+					
 				</div>
 				<div class="tonggao">
 					<h2>已发出的奖品：</h2>
@@ -207,6 +229,7 @@
 				<footer class="footer">
 					<p>咨询电话:  18277200903</p>
 				</footer>
+				
 				
 		</div>
 	</body>
